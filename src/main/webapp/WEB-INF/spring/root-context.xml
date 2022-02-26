@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+
+	<!-- spring jdbc -->
+<bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+	<property name="url" value="jdbc:mysql://localhost:3306/test?serverTimezone=UTC"></property>
+	<property name="username" value="root"></property>
+	<property name="password" value=""></property>
+</bean>
+
+<!-- MyBatis -->
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<property name="mapperLocations" value="classpath:mapper/**/*Mapper.xml"></property>
+	<!-- mapperLocations를 통해 쿼리문을 저장해놓은 mapper 파일에 접근한다 -->
+	<!-- value의 값에는 내가 사용할 mapper의 위치를 지정한다. -->
+	<property name="dataSource" ref="dataSource"></property>
+	<!-- dataSource를 통해 spring-jdbc에 저장된 DB 정보를 가져와서 접속한다 -->
+	<property name="configLocation" value="classpath:/mybatis-config.xml"></property>
+	<!-- configLocation은 당장 필요한 것은 아니나 작업도중에 필요해지기에 미리 추가 -->
+	<!-- value의 값에는 내가 사용할 configLocation의 위치를 지정한다. -->
+</bean>
+
+<!-- 3.0 이전의 version으로 활용할 시에는 바로 밑의 내용을 추가 -->
+<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+	<constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" />
+	<!-- sqlSession을 통해 mapper에 저장된 쿼리문을 실행한다 -->
+</bean>
+
+
+
+
+</beans>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Login">
+	<!-- namespace : Dao에서 불러낼 때 사용할 이름 -->
+	<!-- 쿼리문의 종류에 따라 mapper안의 태그내용이 달라진다. -->
+	<!-- 태그 종류는 select, insert, update, delete 가 존재한다 -->
+	<select id="selectLoginCount" resultType="int">
+	<!-- select id : Dao에서 불러낼 때 사용할 이름 -->
+	<!-- resultType : 반환값으로 사용할 데이터타입 -->
+		select count(*) from staffs_info where staff_number = #{staff_number} and password = #{password}
+	<!-- 대입할 parameter값은 #{}로 지정 -->
+	</select>
+</mapper>
